@@ -9,12 +9,20 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils import attach
 
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browser',
+        help='Браузер, в котором будут запущены тесты',
+        choices=['firefox', 'chrome'],
+        default='chrome'
+    )
 
 @pytest.fixture(scope='function')
 def setup_browser(request):
+    browser_name = request.config.getoption('--browser')
     options = Options()
     selenoid_capabilities = {
-        "browserName": "chrome",
+        "browserName": browser_name,
         "browserVersion": "128.0",
         "selenoid:options": {
             "enableVNC": True,
