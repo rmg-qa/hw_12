@@ -16,14 +16,19 @@ def pytest_addoption(parser):
         choices=['firefox', 'chrome'],
         default='chrome'
     )
+    parser.addoption(
+        '--browser_version',
+        default='128.0',
+    )
 
 @pytest.fixture(scope='function')
 def setup_browser(request):
     browser_name = request.config.getoption('--browser')
+    browser_version = request.config.getoption('--browser_version')
     options = Options()
     selenoid_capabilities = {
         "browserName": browser_name,
-        "browserVersion": "128.0",
+        "browserVersion": browser_version,
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True
