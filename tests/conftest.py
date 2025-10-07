@@ -9,6 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils import attach
 
+
 def pytest_addoption(parser):
     parser.addoption(
         '--browser',
@@ -20,6 +21,7 @@ def pytest_addoption(parser):
         '--browser_version',
         default='128.0',
     )
+
 
 @pytest.fixture(scope='function')
 def setup_browser(request):
